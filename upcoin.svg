@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="coinGradient" x1="32" y1="2" x2="32" y2="62" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+    <linearGradient id="borderGradient" x1="32" y1="0" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Border -->
+  <circle cx="32" cy="32" r="31" fill="url(#borderGradient)"/>
+  
+  <!-- Inner Coin Face -->
+  <circle cx="32" cy="32" r="27" fill="url(#coinGradient)" stroke="#B8860B" stroke-width="1"/>
+  
+  <!-- Infinity Symbol -->
+  <path d="M20 32 C 20 25, 28 25, 32 32 C 36 39, 44 39, 44 32 C 44 25, 36 25, 32 32 C 28 39, 20 39, 20 32 Z" 
+        stroke="#FFF8DC" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Shine Effect -->
+  <ellipse cx="18" cy="16" rx="6" ry="3" fill="white" fill-opacity="0.4" transform="rotate(-45 18 16)"/>
+</svg>

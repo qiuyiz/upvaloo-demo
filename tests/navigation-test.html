@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>UI Navigation Tests</h1>
+    <div id="results"></div>
+
+    <script>
+        // Load the app in an iframe to test
+        const iframe = document.createElement('iframe');
+        iframe.src = 'app.html';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const results = document.getElementById('results');
+
+        function addResult(testName, passed, message) {
+            const div = document.createElement('div');
+            div.className = `test ${passed ? 'pass' : 'fail'}`;
+            div.innerHTML = `<strong>${passed ? '✓' : '✗'} ${testName}</strong><br>${message}`;
+            results.appendChild(div);
+        }
+
+        // Wait for iframe to load
+        iframe.onload = function () {
+            const doc = iframe.contentDocument;
+            const win = iframe.contentWindow;
+
+            setTimeout(() => {
+                runTests(doc, win);
+            }, 500);
+        };
+
+        function runTests(doc, win) {
+            // Test 1: All views exist
+            const views = ['dashboard', 'courses', 'time-machine', 'engage', 'indices'];
+            let allViewsExist = true;
+            views.forEach(view => {
+                if (!doc.getElementById(`${view}-view`)) {
+                    allViewsExist = false;
+                }
+            });
+            addResult('All views exist in DOM', allViewsExist,
+                allViewsExist ? 'Found all 5 views' : 'Some views are missing');
+
+            // Test 2: Only dashboard is initially active
+            const activeViews = doc.querySelectorAll('.view.active');
+            const dashboardActive = doc.getElementById('dashboard-view').classList.contains('active');
+            addResult('Dashboard initially active', dashboardActive && activeViews.length === 1,
+                `Active views: ${activeViews.length}, Dashboard active: ${dashboardActive}`);
+
+            // Test 3: Navigation function exists
+            const hasSwitchView = typeof win.switchView === 'function';
+            addResult('switchView function exists', hasSwitchView,
+                hasSwitchView ? 'Function found' : 'Function missing');
+
+            // Test 4: Switching to Engage view
+            if (hasSwitchView) {
+                win.switchView('engage');
+                setTimeout(() => {
+                    const engageView = doc.getElementById('engage-view');
+                    const isActive = engageView.classList.contains('active');
+                    const isVisible = win.getComputedStyle(engageView).display === 'block';
+                    const isAtTop = engageView.getBoundingClientRect().top < 100;
+
+                    addResult('Engage view switches correctly', isActive && isVisible && isAtTop,
+                        `Active: ${isActive}, Visible: ${isVisible}, AtTop: ${isAtTop}`);
+
+                    // Test 5: Only one view active at a time
+                    const activeCount = doc.querySelectorAll('.view.active').length;
+                    addResult('Only one view active', activeCount === 1,
+                        `Active views count: ${activeCount}`);
+
+                    // Test 6: Engage content loads
+                    const engageFeed = doc.getElementById('engage-feed');
+                    const hasContent = engageFeed && engageFeed.children.length > 0;
+                    addResult('Engage content loaded', hasContent,
+                        `Content items: ${engageFeed?.children.length || 0}`);
+
+                    // Test 7: Switching to Indices
+                    win.switchView('indices');
+                    setTimeout(() => {
+                        const indicesView = doc.getElementById('indices-view');
+                        const isActive = indicesView.classList.contains('active');
+                        const isVisible = win.getComputedStyle(indicesView).display === 'block';
+                        const isAtTop = indicesView.getBoundingClientRect().top < 100;
+
+                        addResult('Indices view switches correctly', isActive && isVisible && isAtTop,
+                            `Active: ${isActive}, Visible: ${isVisible}, AtTop: ${isAtTop}`);
+
+                        // Test 8: Engage is no longer active
+                        const engageStillActive = doc.getElementById('engage-view').classList.contains('active');
+                        addResult('Previous view deactivated', !engageStillActive,
+                            `Engage still active: ${engageStillActive}`);
+                    }, 200);
+                }, 200);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upvaloo Learning Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-text">
+                        <span class="logo-silver">Upval</span><span class="logo-gold">∞</span>
+                    </span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-view="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item" data-view="courses">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                        </path>
+                    </svg>
+                    Courses
+                </a>
+                <a href="#" class="nav-item" data-view="time-machine">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Time Machine
+                </a>
+                <a href="#" class="nav-item" data-view="engage">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+                        </path>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Engage
+                </a>
+                <a href="#" class="nav-item" data-view="indices">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 6l-9.5 9.5-5-5L1 18"></path>
+                        <path d="M17 6h6v6"></path>
+                    </svg>
+                    Indices
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">U</div>
+                <div class="user-info">
+                    <span class="user-name">User Demo</span>
+                    <span class="user-level">Level 1 Investor</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <header class="view-header">
+                    <h1>Welcome back, Investor</h1>
+                    <p>Continue your journey to financial mastery</p>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Your Level</span>
+                        <span class="stat-value">Level 1</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Upcoins</span>
+                        <div class="stat-value-container">
+                            <img src="upcoin.svg" alt="Upcoin" class="upcoin-icon">
+                            <span class="stat-value" id="upcoins-display">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Courses Completed</span>
+                        <span class="stat-value" id="courses-completed-display">0</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="dashboard-center">
+                        <!-- Course Preview -->
+                        <div class="dashboard-course-preview">
+                            <h2>Continue Learning</h2>
+                            <div class="course-card">
+                                <div class="course-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                    </svg>
+                                </div>
+                                <div class="course-info">
+                                    <h3>Interest Rates & Inflation</h3>
+                                    <p>Master the basics of real value.</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" id="course-progress-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="course-actions">
+                                    <button class="btn btn-primary btn-start" onclick="startCourse()">Resume</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engage Section -->
+                        <h2>Engage with Finfluencers</h2>
+                        <div id="dashboard-engage-feed" class="mini-engage-feed">
+                            <!-- Populated by JS -->
+                        </div>
+                    </section>
+
+                    <aside class="dashboard-sidebar">
+                        <!-- Active Predictions Section -->
+                        <div id="dashboard-bets-section" class="sidebar-section hidden">
+                            <div class="section-header">
+                                <h2>Active Predictions</h2>
+                            </div>
+                            <div id="dashboard-bets-list" class="bets-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Trending Indices Section -->
+                        <section class="sidebar-section indices-overview">
+                            <div class="section-header">
+                                <h2>Trending Indices</h2>
+                                <a href="#" onclick="switchView('indices')" class="view-all">View All</a>
+                            </div>
+                            <div id="indices-overview-feed" class="mini-feed">
+                                <!-- Populated by JS -->
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+            </div>
+
+            <!-- Courses View (Landing Page) -->
+            <div id="courses-view" class="view">
+                <header class="view-header">
+                    <h1>Learning Paths</h1>
+                    <p>Master financial concepts with interactive modules</p>
+                </header>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <div class="course-info">
+                            <h3>Interest Rates & Inflation</h3>
+                            <p>Understand the real value of money over time.</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-start" onclick="startCourse()">Start Learning</button>
+                    </div>
+                    <!-- Placeholder for more courses -->
+                    <div class="course-card locked">
+                        <div class="course-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20V10"></path>
+                                <path d="M18 20V4"></path>
+                                <path d="M6 20v-4"></path>
+                            </svg>
+                        </div>
+                        <div class="course-info">
+                            <h3>Market Dynamics</h3>
+                            <p>Supply, demand, and price discovery.</p>
+                            <span class="status-text">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Machine View -->
+            <div id="time-machine-view" class="view">
+                <header class="view-header">
+                    <h1>Time Machine</h1>
+                    <p>Travel to the past to learn or predict the future to earn</p>
+                </header>
+
+                <!-- Landing: Choose Path -->
+                <div id="tm-landing" class="tm-landing">
+                    <div class="tm-card past" onclick="startTimeMachine('past')">
+                        <div class="tm-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h2>Go to the Past</h2>
+                        <p>Test your knowledge on historical events based on your completed courses.</p>
+                        <span class="reward-badge">Reward: 1 Upcoin</span>
+                    </div>
+
+                    <div class="tm-card future" onclick="startTimeMachine('future')">
+                        <div class="tm-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                        </div>
+                        <h2>Predict the Future</h2>
+                        <p>Place bets on future market movements and see what others think.</p>
+                        <span class="reward-badge gold">Reward: 5 Upcoins</span>
+                    </div>
+                </div>
+
+                <!-- Active Bets (Time Machine View) -->
+                <div id="tm-bets-section" class="hidden" style="margin-top: 3rem;">
+                    <h2>Your Active Predictions</h2>
+                    <div id="tm-bets-list" class="bets-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Past Mode View -->
+            <div id="past-view" class="view">
+                <button class="btn-back" onclick="switchView('time-machine')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Time Machine
+                </button>
+
+                <div class="lesson-container">
+                    <div class="lesson-content">
+                        <div class="question-card">
+                            <span class="mode-badge past">Historical Event</span>
+                            <h2 id="past-scenario-title">Loading...</h2>
+                            <p class="scenario-text" id="past-scenario-text"></p>
+                            <p class="question-text" id="past-question-text"></p>
+
+                            <div class="options-grid" id="past-options-grid">
+                                <!-- Options populated by JS -->
+                            </div>
+
+                            <div id="past-feedback-area" class="feedback hidden">
+                                <div class="feedback-content">
+                                    <h3 id="past-feedback-title"></h3>
+                                    <p id="past-feedback-message"></p>
+                                    <button class="btn btn-primary btn-next" onclick="switchView('time-machine')">Return
+                                        to Time Machine</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="visualization-panel">
+                        <h3>Historical Data</h3>
+                        <div class="chart-container">
+                            <canvas id="pastChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Mode View -->
+            <div id="future-view" class="view">
+                <button class="btn-back" onclick="switchView('time-machine')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Time Machine
+                </button>
+
+                <div class="lesson-container">
+                    <div class="lesson-content">
+                        <div class="question-card">
+                            <span class="mode-badge future">Future Prediction</span>
+                            <h2 id="future-question-title">Loading...</h2>
+                            <p class="question-text" id="future-question-text"></p>
+
+                            <div class="options-grid" id="future-options-grid">
+                                <!-- Options populated by JS -->
+                            </div>
+
+                            <div id="future-feedback-area" class="feedback hidden">
+                                <div class="feedback-content">
+                                    <h3>Prediction Placed!</h3>
+                                    <p>Your bet has been recorded. If you're right, you'll earn 5 Upcoins.</p>
+                                    <button class="btn btn-primary btn-next" onclick="switchView('time-machine')">Return
+                                        to Time Machine</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="visualization-panel">
+                        <h3>Community Votes</h3>
+                        <div class="chart-container">
+                            <canvas id="futureChart"></canvas>
+                        </div>
+                        <p class="chart-caption">See what other investors are predicting</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+
+    <!-- Course View -->
+    <div id="course-view" class="view">
+        <header class="view-header">
+            <div class="course-header-top">
+                <button class="btn-back" onclick="showDashboard()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Dashboard
+                </button>
+                <span class="question-progress">Question <span id="current-question-num">1</span>/10</span>
+            </div>
+            <h1>Interest Rates & Inflation</h1>
+        </header>
+
+        <div class="lesson-container">
+            <div class="lesson-content">
+                <div class="question-card">
+                    <h2 id="scenario-title">Scenario: The Real Value of Money</h2>
+                    <p class="scenario-text" id="scenario-text">
+                        You have <strong>$100</strong> invested in a savings account earning
+                        <strong>2.0%</strong> interest per year.
+                        However, the inflation rate is <strong>1.0%</strong> per year.
+                    </p>
+                    <p class="question-text" id="question-text">
+                        What is the <strong>ending real value</strong> of your money in <strong>10
+                            years</strong>?
+                    </p>
+
+                    <div class="options-grid" id="options-grid">
+                        <!-- Options populated by JS -->
+                    </div>
+
+                    <div id="feedback-area" class="feedback hidden">
+                        <div class="feedback-content">
+                            <h3 id="feedback-title"></h3>
+                            <p id="feedback-message"></p>
+                            <button class="btn btn-primary btn-next hidden" id="next-btn" onclick="nextQuestion()">Next
+                                Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visualization-panel">
+                <h3>Real-time Projection</h3>
+                <div class="chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="dot nominal"></span> Nominal Value (2%)
+                    </div>
+                    <div class="legend-item">
+                        <span class="dot real"></span> Real Value (Net 1%)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engage View -->
+    <div id="engage-view" class="view">
+        <header class="view-header">
+            <h1>Engage</h1>
+            <p>Watch, learn, and discuss with top finfluencers</p>
+        </header>
+
+        <!-- Video Feed -->
+        <div id="engage-feed" class="video-grid">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <!-- Video Detail View -->
+    <div id="video-detail-view" class="view">
+        <button class="btn-back" onclick="switchView('engage')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+            </svg>
+            Back to Engage
+        </button>
+
+        <div class="video-detail-container">
+            <div class="video-detail-main">
+                <!-- Video Player -->
+                <div class="video-player-large">
+                    <iframe id="video-iframe" width="100%" height="100%" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
+                <!-- Video Info -->
+                <div class="video-info-section">
+                    <h1 id="video-detail-title">Video Title</h1>
+                    <div class="video-meta-row">
+                        <div class="finfluencer-tag" id="video-detail-author">
+                            <div class="avatar-small"></div>
+                            <span>Author Name</span>
+                        </div>
+                        <span id="video-detail-views">0 views</span>
+                        <span id="video-detail-timestamp">0 days ago</span>
+                    </div>
+                    <p class="video-description" id="video-detail-description">Video description goes here...</p>
+                </div>
+
+                <!-- Comments Forum -->
+                <div class="forum-section">
+                    <h3>Community Discussion</h3>
+                    <div class="comment-input-area">
+                        <input type="text" id="video-detail-comment-input" placeholder="Join the discussion...">
+                        <button class="btn btn-primary" onclick="postVideoDetailComment()">Post</button>
+                    </div>
+                    <div class="comments-list" id="video-detail-comments">
+                        <!-- Comments populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar with Related Indices -->
+            <aside class="video-detail-sidebar">
+                <div class="related-section">
+                    <h3>Related Indices</h3>
+                    <div id="video-detail-indices" class="related-indices-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Indices View -->
+    <div id="indices-view" class="view">
+        <header class="view-header">
+            <h1>Finfluencer Indices</h1>
+            <p>Follow top performing portfolios and invest in their strategies</p>
+        </header>
+
+        <div class="indices-feed" id="indices-feed">
+            <!-- Indices will be populated by JS -->
+        </div>
+    </div>
+    </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
