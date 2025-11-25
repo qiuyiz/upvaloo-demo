@@ -135,7 +135,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: 2rem;
+    padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
@@ -143,8 +143,13 @@ body {
 }
 
 .view {
-    position: static;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
+    max-width: 1000px;
+    padding: 2rem;
     display: none !important;
     visibility: hidden;
     opacity: 0;
