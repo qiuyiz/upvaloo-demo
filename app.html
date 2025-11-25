@@ -66,7 +66,7 @@
             <div class="user-profile">
                 <div class="avatar">U</div>
                 <div class="user-info">
-                    <span class="user-name">User Demo</span>
+                    <span class="user-name" id="user-name-display">User Demo</span>
                     <span class="user-level">Level 1 Investor</span>
                 </div>
             </div>
@@ -77,7 +77,7 @@
             <!-- Dashboard View -->
             <div id="dashboard-view" class="view active">
                 <header class="view-header">
-                    <h1>Welcome back, Investor</h1>
+                    <h1 id="welcome-title">Welcome back, Investor</h1>
                     <p>Continue your journey to financial mastery</p>
                 </header>
 
@@ -467,7 +467,19 @@
     </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
+        <script>
+            // Update user name from localStorage
+            document.addEventListener('DOMContentLoaded', function() {
+                var userName = localStorage.getItem('upvalooUserName');
+                if (userName) {
+                    var nameDisplay = document.getElementById('user-name-display');
+                    if (nameDisplay) nameDisplay.textContent = userName;
+                    var welcomeTitle = document.getElementById('welcome-title');
+                    if (welcomeTitle) welcomeTitle.textContent = `Welcome back, ${userName}`;
+                }
+            });
+        </script>
+        <script src="app.js"></script>
 </body>
 
 </html>

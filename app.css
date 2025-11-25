@@ -143,12 +143,8 @@ body {
 }
 
 .view {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
     width: 100%;
-    max-width: 1000px;
     display: none !important;
     visibility: hidden;
     opacity: 0;
@@ -541,6 +537,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    width: auto;
+    max-width: 100%;
 }
 
 .index-card {
@@ -1108,7 +1106,8 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     padding: 1rem 0;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
 }
 
 /* Content Cards (Videos & Blogs) */
