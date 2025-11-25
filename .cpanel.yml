@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/w0n1abtlmkuu/public_html/upvaloo.ai/
+    - /bin/cp -R * $DEPLOYPATH
