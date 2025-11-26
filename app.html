@@ -341,6 +341,10 @@
             <div class="lesson-content">
                 <div class="question-card">
                     <h2 id="scenario-title">Scenario: The Real Value of Money</h2>
+
+                    <!-- Character Container -->
+                    <div id="character-display"></div>
+
                     <p class="scenario-text" id="scenario-text">
                         You have <strong>$100</strong> invested in a savings account earning
                         <strong>2.0%</strong> interest per year.
@@ -456,30 +460,45 @@
     <!-- Indices View -->
     <div id="indices-view" class="view">
         <header class="view-header">
-            <h1>Finfluencer Indices</h1>
-            <p>Follow top performing portfolios and invest in their strategies</p>
+            <h1>Investment Indices</h1>
+            <p>Finfluencer strategies and Upvaloo-managed classic indices</p>
         </header>
 
-        <div class="indices-feed" id="indices-feed">
-            <!-- Indices will be populated by JS -->
+        <div class="indices-grid">
+            <!-- Left: Finfluencer Indices -->
+            <section class="indices-main">
+                <h2>Finfluencer Indices</h2>
+                <div class="indices-feed" id="indices-feed">
+                    <!-- Indices will be populated by JS -->
+                </div>
+            </section>
+
+            <!-- Right: Upvaloo Managed Indices -->
+            <aside class="upvaloo-indices-sidebar">
+                <h2>Upvaloo Managed</h2>
+                <p class="sidebar-description">Classic indices with risk & tax optimization</p>
+                <div id="upvaloo-indices-list">
+                    <!-- Populated by JS -->
+                </div>
+            </aside>
         </div>
     </div>
     </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            // Update user name from localStorage
-            document.addEventListener('DOMContentLoaded', function() {
-                var userName = localStorage.getItem('upvalooUserName');
-                if (userName) {
-                    var nameDisplay = document.getElementById('user-name-display');
-                    if (nameDisplay) nameDisplay.textContent = userName;
-                    var welcomeTitle = document.getElementById('welcome-title');
-                    if (welcomeTitle) welcomeTitle.textContent = `Welcome back, ${userName}`;
-                }
-            });
-        </script>
-        <script src="app.js"></script>
+    <script>
+        // Update user name from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            var userName = localStorage.getItem('upvalooUserName');
+            if (userName) {
+                var nameDisplay = document.getElementById('user-name-display');
+                if (nameDisplay) nameDisplay.textContent = userName;
+                var welcomeTitle = document.getElementById('welcome-title');
+                if (welcomeTitle) welcomeTitle.textContent = `Welcome back, ${userName}`;
+            }
+        });
+    </script>
+    <script src="app.js"></script>
 </body>
 
 </html>

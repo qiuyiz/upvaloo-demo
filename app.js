@@ -24,7 +24,11 @@ const questions = [
         ],
         correctAnswer: 110.46,
         explanation: "Great job! Even though you earned 2% interest, inflation ate away 1% of your purchasing power. Your real return is roughly 1% per year.",
-        chartType: 'growth'
+        chartType: 'growth',
+        character: {
+            name: 'Financial Advisor',
+            color: '#ffd700'
+        }
     },
     {
         id: 2,
@@ -41,7 +45,11 @@ const questions = [
         ],
         correctAnswer: 82.03,
         explanation: "Exactly. When inflation is higher than your interest rate, you are losing purchasing power every year. This is a negative real rate.",
-        chartType: 'growth'
+        chartType: 'growth',
+        character: {
+            name: 'Student',
+            color: '#60a5fa'
+        }
     },
     {
         id: 3,
@@ -58,7 +66,11 @@ const questions = [
         ],
         correctAnswer: 10,
         explanation: "Correct! The Rule of 72 states that 72 divided by the interest rate (7.2) gives the approximate years to double (10).",
-        chartType: 'growth'
+        chartType: 'growth',
+        character: {
+            name: 'Economist',
+            color: '#a78bfa'
+        }
     },
     {
         id: 4,
@@ -75,7 +87,11 @@ const questions = [
         ],
         correctAnswer: 122.12,
         explanation: "Yes! In deflation, money gains value over time because prices drop. Your $100 can buy more goods in the future.",
-        chartType: 'growth'
+        chartType: 'growth',
+        character: {
+            name: 'Investor',
+            color: '#4ade80'
+        }
     },
     {
         id: 5,
@@ -90,7 +106,11 @@ const questions = [
         ],
         correctAnswer: 101.50,
         explanation: "Correct! E[M] = 100(1 + 0.015) = $101.50. StdDev = 100 * sqrt((0.02-0.01)^2 / 12) ≈ $0.29.",
-        chartType: 'distribution'
+        chartType: 'distribution',
+        character: {
+            name: 'Mathematician',
+            color: '#fb923c'
+        }
     }
 ];
 
@@ -304,6 +324,7 @@ function switchView(viewId) {
 
     if (viewId === 'indices') {
         renderIndices();
+        renderUpvalooIndices();
     } else if (viewId === 'dashboard') {
         renderDashboardOverview();
     } else if (viewId === 'time-machine') {
@@ -672,6 +693,278 @@ function renderIndices() {
     `).join('');
 }
 
+// Upvaloo Managed Indices Data
+const upvalooIndices = [
+    {
+        name: 'S&P 500',
+        ticker: 'SPX',
+        return: '+28.5%',
+        risk: 'Medium',
+        features: ['Tax-Loss Harvesting', 'Auto-Rebalancing', 'Low Fees (0.03%)']
+    },
+    {
+        name: 'Nasdaq 100',
+        ticker: 'NDX',
+        return: '+35.2%',
+        risk: 'Medium-High',
+        features: ['Tax-Loss Harvesting', 'Sector Optimization', 'Low Fees (0.05%)']
+    },
+    {
+        name: 'Total Market',
+        ticker: 'VTI',
+        return: '+26.1%',
+        risk: 'Medium',
+        features: ['Full Diversification', 'Tax Optimization', 'Ultra-Low Fees (0.02%)']
+    }
+];
+
+function renderUpvalooIndices() {
+    const container = document.getElementById('upvaloo-indices-list');
+    if (!container) return;
+
+    container.innerHTML = upvalooIndices.map(index => `
+        <div class="upvaloo-index-card">
+            <div class="upvaloo-index-header">
+                <div>
+                    <h4>${index.name}</h4>
+                    <span class="ticker-small">${index.ticker}</span>
+                </div>
+                <span class="upvaloo-badge">UPVALOO</span>
+            </div>
+            <div class="index-return positive">${index.return} YTD</div>
+            <div class="optimization-features">
+                ${index.features.map(feature => `
+                    <div class="feature-tag">
+                        <span class="feature-icon">✓</span>
+                        <span>${feature}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 0.85rem;">
+                Learn More
+            </button>
+        </div>
+    `).join('');
+}
+
+// Character Creation Function
+function createCharacterSVG(character) {
+    const color = character.color;
+    const name = character.name;
+
+    return `
+        <div class="character-container">
+            <svg class="character-avatar" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+                ${getFullBodyCharacter(name, color)}
+            </svg>
+        </div>
+    `;
+}
+
+function getFullBodyCharacter(name, color) {
+    const baseCharacter = `
+        <g class="head">
+            <!-- Head -->
+            <circle cx="100" cy="50" r="25" fill="#f5d5b8" stroke="${color}" stroke-width="2"/>
+            
+            <!-- Hair -->
+            <path d="M 75 45 Q 75 25 100 25 Q 125 25 125 45" fill="#4a3728" stroke="${color}" stroke-width="1"/>
+            
+            <!-- Eyes -->
+            <g class="eyes">
+                <ellipse cx="92" cy="48" rx="3" ry="5" fill="#333"/>
+                <ellipse cx="108" cy="48" rx="3" ry="5" fill="#333"/>
+            </g>
+            
+            <!-- Eyelashes -->
+            <g class="eyelashes">
+                <!-- Left eyelashes -->
+                <line x1="89" y1="43" x2="88" y2="41" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+                <line x1="92" y1="42" x2="92" y2="40" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+                <line x1="95" y1="43" x2="96" y2="41" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+                <!-- Right eyelashes -->
+                <line x1="105" y1="43" x2="104" y2="41" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+                <line x1="108" y1="42" x2="108" y2="40" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+                <line x1="111" y1="43" x2="112" y2="41" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>
+            </g>
+            
+            <!-- Smile -->
+            <path d="M 90 58 Q 100 63 110 58" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </g>
+    `;
+
+
+    switch (name) {
+        case 'Financial Advisor':
+            return baseCharacter + `
+                <!-- Suit Body -->
+                <rect x="80" y="75" width="40" height="60" fill="${color}" opacity="0.8" rx="5"/>
+                
+                <!-- Tie -->
+                <polygon points="100,75 95,85 100,115 105,85" fill="#1a1a1a" opacity="0.6"/>
+                
+                <!-- Arms -->
+                <rect x="60" y="80" width="15" height="50" fill="${color}" opacity="0.7" rx="3"/>
+                <g class="right-arm">
+                    <rect x="125" y="80" width="15" height="50" fill="${color}" opacity="0.7" rx="3"/>
+                </g>
+                
+                <!-- Briefcase in hand -->
+                <g class="prop">
+                    <rect x="135" y="120" width="25" height="18" fill="#8b4513" stroke="#654321" stroke-width="1.5" rx="2"/>
+                    <rect x="145" y="115" width="5" height="8" fill="#654321" rx="1"/>
+                    <line x1="140" y1="129" x2="155" y2="129" stroke="#654321" stroke-width="1"/>
+                </g>
+                
+                <!-- Legs -->
+                <rect x="85" y="135" width="12" height="60" fill="#2c2c2c" rx="2"/>
+                <rect x="103" y="135" width="12" height="60" fill="#2c2c2c" rx="2"/>
+                
+                <!-- Shoes -->
+                <ellipse cx="91" cy="200" rx="8" ry="4" fill="#1a1a1a"/>
+                <ellipse cx="109" cy="200" rx="8" ry="4" fill="#1a1a1a"/>
+            `;
+
+        case 'Student':
+            return baseCharacter + `
+                <!-- Glasses -->
+                <g>
+                    <circle cx="92" cy="48" r="8" fill="none" stroke="${color}" stroke-width="2"/>
+                    <circle cx="108" cy="48" r="8" fill="none" stroke="${color}" stroke-width="2"/>
+                    <line x1="100" y1="48" x2="100" y2="48" stroke="${color}" stroke-width="2"/>
+                </g>
+                
+                <!-- Casual Shirt -->
+                <rect x="80" y="75" width="40" height="60" fill="${color}" opacity="0.6" rx="5"/>
+                <circle cx="90" cy="85" r="2" fill="#fff" opacity="0.8"/>
+                <circle cx="90" cy="95" r="2" fill="#fff" opacity="0.8"/>
+                <circle cx="90" cy="105" r="2" fill="#fff" opacity="0.8"/>
+                
+                <!-- Arms -->
+                <rect x="60" y="80" width="15" height="50" fill="${color}" opacity="0.5" rx="3"/>
+                <g class="right-arm">
+                    <rect x="125" y="80" width="15" height="50" fill="${color}" opacity="0.5" rx="3"/>
+                </g>
+                
+                <!-- Backpack -->
+                <g class="prop">
+                    <rect x="45" y="85" width="30" height="35" fill="#4a5568" stroke="#2d3748" stroke-width="2" rx="3"/>
+                    <rect x="52" y="90" width="7" height="10" fill="#718096" rx="1"/>
+                    <rect x="61" y="90" width="7" height="10" fill="#718096" rx="1"/>
+                    <line x1="55" y1="80" x2="55" y2="85" stroke="#2d3748" stroke-width="3"/>
+                    <line x1="65" y1="80" x2="65" y2="85" stroke="#2d3748" stroke-width="3"/>
+                </g>
+                
+                <!-- Legs -->
+                <rect x="85" y="135" width="12" height="60" fill="#4299e1" rx="2"/>
+                <rect x="103" y="135" width="12" height="60" fill="#4299e1" rx="2"/>
+                
+                <!-- Sneakers -->
+                <ellipse cx="91" cy="200" rx="9" ry="5" fill="#e53e3e"/>
+                <ellipse cx="109" cy="200" rx="9" ry="5" fill="#e53e3e"/>
+            `;
+
+        case 'Economist':
+            return baseCharacter + `
+                <!-- Professional Blazer -->
+                <rect x="80" y="75" width="40" height="60" fill="${color}" opacity="0.7" rx="5"/>
+                <polygon points="100,75 95,80 95,95 100,90 105,95 105,80" fill="#fff" opacity="0.6"/>
+                
+                <!-- Arms -->
+                <rect x="60" y="80" width="15" height="50" fill="${color}" opacity="0.6" rx="3"/>
+                <g class="right-arm">
+                    <rect x="125" y="80" width="15" height="50" fill="${color}" opacity="0.6" rx="3"/>
+                </g>
+                
+                <!-- Clipboard with chart -->
+                <g class="prop">
+                    <rect x="130" y="100" width="30" height="40" fill="#f7fafc" stroke="#2d3748" stroke-width="2" rx="2"/>
+                    <rect x="135" y="95" width="20" height="5" fill="#4a5568" rx="1"/>
+                    <!-- Chart lines -->
+                    <polyline points="135,130 140,125 145,120 150,128 155,115" stroke="${color}" stroke-width="2" fill="none"/>
+                    <line x1="135" y1="135" x2="155" y2="135" stroke="#cbd5e0" stroke-width="1"/>
+                </g>
+                
+                <!-- Legs -->
+                <rect x="85" y="135" width="12" height="60" fill="#4a5568" rx="2"/>
+                <rect x="103" y="135" width="12" height="60" fill="#4a5568" rx="2"/>
+                
+                <!-- Shoes -->
+                <ellipse cx="91" cy="200" rx="8" ry="4" fill="#2d3748"/>
+                <ellipse cx="109" cy="200" rx="8" ry="4" fill="#2d3748"/>
+            `;
+
+        case 'Investor':
+            return baseCharacter + `
+                <!-- Business Suit -->
+                <rect x="80" y="75" width="40" height="60" fill="${color}" opacity="0.8" rx="5"/>
+                <rect x="88" y="75" width="24" height="60" fill="#2d3748" opacity="0.4" rx="3"/>
+                
+                <!-- Arms -->
+                <rect x="60" y="80" width="15" height="50" fill="${color}" opacity="0.7" rx="3"/>
+                <g class="right-arm">
+                    <rect x="125" y="80" width="15" height="50" fill="${color}" opacity="0.7" rx="3"/>
+                </g>
+                
+                <!-- Stack of Cash in hand -->
+                <g class="prop" transform="translate(130, 110)">
+                    <rect x="0" y="0" width="28" height="18" fill="#48bb78" stroke="#2f855a" stroke-width="1.5" rx="1"/>
+                    <rect x="2" y="-3" width="28" height="18" fill="#48bb78" stroke="#2f855a" stroke-width="1.5" rx="1"/>
+                    <rect x="4" y="-6" width="28" height="18" fill="#68d391" stroke="#2f855a" stroke-width="1.5" rx="1"/>
+                    <text x="18" y="8" font-size="10" fill="#1a472a" text-anchor="middle" font-weight="bold">$$$</text>
+                </g>
+                
+                <!-- Legs -->
+                <rect x="85" y="135" width="12" height="60" fill="#1a202c" rx="2"/>
+                <rect x="103" y="135" width="12" height="60" fill="#1a202c" rx="2"/>
+                
+                <!-- Dress Shoes -->
+                <ellipse cx="91" cy="200" rx="8" ry="4" fill="#000"/>
+                <ellipse cx="109" cy="200" rx="8" ry="4" fill="#000"/>
+            `;
+
+        case 'Mathematician':
+            return baseCharacter + `
+                <!-- Cardigan/Sweater -->
+                <rect x="80" y="75" width="40" height="60" fill="${color}" opacity="0.6" rx="5"/>
+                <line x1="100" y1="75" x2="100" y2="135" stroke="#fff" stroke-width="2" opacity="0.6"/>
+                
+                <!-- Arms -->
+                <rect x="60" y="80" width="15" height="50" fill="${color}" opacity="0.5" rx="3"/>
+                <g class="right-arm">
+                    <rect x="125" y="80" width="15" height="50" fill="${color}" opacity="0.5" rx="3"/>
+                </g>
+                
+                <!-- Calculator in hand -->
+                <g class="prop" transform="translate(50, 115)">
+                    <rect x="0" y="0" width="22" height="30" fill="#2d3748" stroke="#1a202c" stroke-width="2" rx="2"/>
+                    <rect x="2" y="2" width="18" height="8" fill="#68d391" rx="1"/>
+                    <!-- Calculator buttons -->
+                    <circle cx="6" cy="15" r="2" fill="#4a5568"/>
+                    <circle cx="11" cy="15" r="2" fill="#4a5568"/>
+                    <circle cx="16" cy="15" r="2" fill="#4a5568"/>
+                    <circle cx="6" cy="20" r="2" fill="#4a5568"/>
+                    <circle cx="11" cy="20" r="2" fill="#4a5568"/>
+                    <circle cx="16" cy="20" r="2" fill="#4a5568"/>
+                    <circle cx="6" cy="25" r="2" fill="#4a5568"/>
+                    <circle cx="11" cy="25" r="2" fill="#4a5568"/>
+                    <circle cx="16" cy="25" r="2" fill="${color}"/>
+                </g>
+                
+                <!-- Legs -->
+                <rect x="85" y="135" width="12" height="60" fill="#805ad5" rx="2"/>
+                <rect x="103" y="135" width="12" height="60" fill="#805ad5" rx="2"/>
+                
+                <!-- Shoes -->
+                <ellipse cx="91" cy="200" rx="8" ry="4" fill="#553c9a"/>
+                <ellipse cx="109" cy="200" rx="8" ry="4" fill="#553c9a"/>
+            `;
+
+        default:
+            return baseCharacter;
+    }
+}
+
 // Course Logic
 function loadQuestion(index) {
     const q = questions[index];
@@ -684,6 +977,12 @@ function loadQuestion(index) {
     document.getElementById('scenario-title').textContent = q.title;
     document.getElementById('scenario-text').innerHTML = q.scenario;
     document.getElementById('question-text').innerHTML = q.question;
+
+    // Render Character
+    const characterDisplay = document.getElementById('character-display');
+    if (characterDisplay && q.character) {
+        characterDisplay.innerHTML = createCharacterSVG(q.character);
+    }
 
     // Update Options
     const optionsGrid = document.getElementById('options-grid');
