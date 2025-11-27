@@ -167,4 +167,260 @@ document.querySelectorAll('.feature-card').forEach(card => {
     });
 });
 
+// Waitlist form submission with EmailJS
+const waitlistForm = document.getElementById('waitlist-form');
+const waitlistFeedback = document.getElementById('waitlist-feedback');
+
+if (waitlistForm) {
+    waitlistForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = waitlistForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+
+        // Get form values
+        const name = document.getElementById('waitlist-name').value.trim();
+        const email = document.getElementById('waitlist-email').value.trim();
+        const state = document.getElementById('waitlist-state').value;
+
+        // Basic validation
+        if (!name || !email || !state) {
+            showFeedback('Please fill in all fields.', 'error');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showFeedback('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        try {
+            // Get EmailJS config from window (set by constants.js)
+            const config = window.UPVALOO_CONFIG;
+
+            if (!config || !config.EMAILJS_SERVICE_ID || !config.EMAILJS_TEMPLATE_ID) {
+                throw new Error('EmailJS configuration not found');
+            }
+
+            // Send email via EmailJS
+            const response = await emailjs.send(
+                config.EMAILJS_SERVICE_ID,
+                config.EMAILJS_TEMPLATE_ID,
+                {
+                    name: name,
+                    email: email,
+                    state: state
+                }
+            );
+
+            if (response.status === 200) {
+                showFeedback('Thanks for joining! We\'ll be in touch soon.', 'success');
+                waitlistForm.reset();
+            } else {
+                throw new Error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('EmailJS error:', error);
+            showFeedback('Something went wrong. Please try again.', 'error');
+        } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
+    });
+}
+
+// Finfluencer Waitlist form submission
+const finfluencerForm = document.getElementById('finfluencer-waitlist-form');
+const finfluencerFeedback = document.getElementById('finfluencer-waitlist-feedback');
+
+if (finfluencerForm) {
+    finfluencerForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = finfluencerForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+
+        // Get form values
+        const name = document.getElementById('finfluencer-name').value.trim();
+        const email = document.getElementById('finfluencer-email').value.trim();
+        const social = document.getElementById('finfluencer-social').value.trim();
+        const state = document.getElementById('finfluencer-state').value;
+
+        // Basic validation
+        if (!name || !email || !social || !state) {
+            showFinfluencerFeedback('Please fill in all fields.', 'error');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showFinfluencerFeedback('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        try {
+            // Get EmailJS config from window
+            const config = window.UPVALOO_CONFIG;
+
+            if (!config || !config.EMAILJS_SERVICE_ID || !config.EMAILJS_FINFLUENCER_TEMPLATE_ID) {
+                throw new Error('EmailJS configuration not found');
+            }
+
+            // Send email via EmailJS
+            const response = await emailjs.send(
+                config.EMAILJS_SERVICE_ID,
+                config.EMAILJS_FINFLUENCER_TEMPLATE_ID,
+                {
+                    name: name,
+                    email: email,
+                    social_media: social,
+                    state: state
+                }
+            );
+
+            if (response.status === 200) {
+                showFinfluencerFeedback('Thanks for joining! We\'ll be in touch soon.', 'success');
+                finfluencerForm.reset();
+            } else {
+                throw new Error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('EmailJS error:', error);
+            showFinfluencerFeedback('Something went wrong. Please try again.', 'error');
+        } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
+    });
+}
+
+function showFinfluencerFeedback(message, type) {
+    if (finfluencerFeedback) {
+        finfluencerFeedback.textContent = message;
+        finfluencerFeedback.className = `waitlist-feedback ${type}`;
+        finfluencerFeedback.style.display = 'block';
+
+        // Auto-hide after 5 seconds for success messages
+        if (type === 'success') {
+            setTimeout(() => {
+                finfluencerFeedback.style.display = 'none';
+            }, 5000);
+        }
+    }
+}
+
+function showFeedback(message, type) {
+    if (waitlistFeedback) {
+        waitlistFeedback.textContent = message;
+        waitlistFeedback.className = `waitlist-feedback ${type}`;
+        waitlistFeedback.style.display = 'block';
+
+        // Auto-hide after 5 seconds for success messages
+        if (type === 'success') {
+            setTimeout(() => {
+                waitlistFeedback.style.display = 'none';
+            }, 5000);
+        }
+    }
+}
+
+// Finfluencer waitlist form submission with EmailJS
+const finfluencerWaitlistForm = document.getElementById('finfluencer-waitlist-form');
+const finfluencerWaitlistFeedback = document.getElementById('finfluencer-waitlist-feedback');
+
+if (finfluencerWaitlistForm) {
+    finfluencerWaitlistForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = finfluencerWaitlistForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.textContent;
+
+        // Get form values
+        const name = document.getElementById('finfluencer-name').value.trim();
+        const email = document.getElementById('finfluencer-email').value.trim();
+        const social_media = document.getElementById('finfluencer-social').value.trim();
+        const state = document.getElementById('finfluencer-state').value;
+
+        // Basic validation
+        if (!name || !email || !social_media || !state) {
+            showFinfluencerFeedback('Please fill in all fields.', 'error');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showFinfluencerFeedback('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        try {
+            // Get EmailJS config from window (set by constants.js)
+            const config = window.UPVALOO_CONFIG;
+
+            if (!config || !config.EMAILJS_SERVICE_ID || !config.EMAILJS_FINFLUENCER_TEMPLATE_ID) {
+                throw new Error('EmailJS configuration not found');
+            }
+
+            // Send email via EmailJS with finfluencer-specific template
+            const response = await emailjs.send(
+                config.EMAILJS_SERVICE_ID,
+                config.EMAILJS_FINFLUENCER_TEMPLATE_ID,
+                {
+                    name: name,
+                    email: email,
+                    social_media: social_media,
+                    state: state
+                }
+            );
+
+            if (response.status === 200) {
+                showFinfluencerFeedback('Thanks for joining! We\'ll be in touch soon.', 'success');
+                finfluencerWaitlistForm.reset();
+            } else {
+                throw new Error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('EmailJS error:', error);
+            showFinfluencerFeedback('Something went wrong. Please try again.', 'error');
+        } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
+    });
+}
+
+function showFinfluencerFeedback(message, type) {
+    if (finfluencerWaitlistFeedback) {
+        finfluencerWaitlistFeedback.textContent = message;
+        finfluencerWaitlistFeedback.className = `waitlist-feedback ${type}`;
+        finfluencerWaitlistFeedback.style.display = 'block';
+
+        // Auto-hide after 5 seconds for success messages
+        if (type === 'success') {
+            setTimeout(() => {
+                finfluencerWaitlistFeedback.style.display = 'none';
+            }, 5000);
+        }
+    }
+}
+
 console.log('Upvaloo website loaded successfully! 🚀');

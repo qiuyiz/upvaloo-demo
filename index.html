@@ -13,9 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script type="module">
-        import { GOOGLE_CLIENT_ID } from './constants.js';
-        window.GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID;
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="constants.js"></script>
+    <script>
+        // Initialize EmailJS with public key (set in constants.js)
+        if (window.emailjs && window.EMAILJS_PUBLIC_KEY) {
+            emailjs.init(window.EMAILJS_PUBLIC_KEY);
+        }
     </script>
 </head>
 
@@ -31,7 +35,7 @@
                 </div>
                 <div class="nav-links">
                     <a href="#how-it-works" class="nav-link">How It Works</a>
-                    <a href="#get-started" class="nav-link">Get Started</a>
+                    <a href="#join-waitlist" class="nav-link">Join Waitlist</a>
                     <div id="g_id_onload"
                         data-client_id="176533971134-71jtjk2v597k4dsltvj799n6ssdbmg82.apps.googleusercontent.com"
                         data-context="signin" data-ux_mode="popup" data-callback="handleGoogleLogin"
@@ -212,14 +216,95 @@
             </div>
         </div>
     </section>
-    <section id="get-started" class="cta-section">
+    <section id="join-waitlist" class="cta-section">
         <div class="container">
             <div class="cta-content">
                 <h2 class="cta-title">Ready to Start Your Journey?</h2>
                 <p class="cta-subtitle">Join thousands of investors using AI to maximize their returns.</p>
-                <div class="cta-buttons">
-                    <a href="app.html" class="btn btn-large btn-gradient">Try it out</a>
-                    <button class="btn btn-large btn-outline-light">Schedule Demo</button>
+
+                <!-- Waitlist Signup Card - matches Learn/Vet/Trade card styling -->
+                <div class="feature-card waitlist-card" data-feature="waitlist">
+                    <div class="feature-icon icon-waitlist">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="feature-badge badge-waitlist">Early Access</span>
+                    <h3 class="feature-title">Join the Waitlist</h3>
+                    <p class="feature-description">
+                        Be among the first to experience Upvaloo's AI-powered marketplace.
+                        Limited spots available for our upcoming launch.
+                    </p>
+
+                    <form id="waitlist-form" class="waitlist-form" novalidate>
+                        <div class="form-field">
+                            <input type="text" id="waitlist-name" name="name" placeholder="Full name" required />
+                        </div>
+                        <div class="form-field">
+                            <input type="email" id="waitlist-email" name="email" placeholder="Email address" required />
+                        </div>
+                        <div class="form-field">
+                            <select id="waitlist-state" name="state" required>
+                                <option value="">Select your state</option>
+                                <option>AL</option>
+                                <option>AK</option>
+                                <option>AZ</option>
+                                <option>AR</option>
+                                <option>CA</option>
+                                <option>CO</option>
+                                <option>CT</option>
+                                <option>DE</option>
+                                <option>FL</option>
+                                <option>GA</option>
+                                <option>HI</option>
+                                <option>ID</option>
+                                <option>IL</option>
+                                <option>IN</option>
+                                <option>IA</option>
+                                <option>KS</option>
+                                <option>KY</option>
+                                <option>LA</option>
+                                <option>ME</option>
+                                <option>MD</option>
+                                <option>MA</option>
+                                <option>MI</option>
+                                <option>MN</option>
+                                <option>MS</option>
+                                <option>MO</option>
+                                <option>MT</option>
+                                <option>NE</option>
+                                <option>NV</option>
+                                <option>NH</option>
+                                <option>NJ</option>
+                                <option>NM</option>
+                                <option>NY</option>
+                                <option>NC</option>
+                                <option>ND</option>
+                                <option>OH</option>
+                                <option>OK</option>
+                                <option>OR</option>
+                                <option>PA</option>
+                                <option>RI</option>
+                                <option>SC</option>
+                                <option>SD</option>
+                                <option>TN</option>
+                                <option>TX</option>
+                                <option>UT</option>
+                                <option>VT</option>
+                                <option>VA</option>
+                                <option>WA</option>
+                                <option>WV</option>
+                                <option>WI</option>
+                                <option>WY</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-large btn-primary">Join Waitlist</button>
+                        <div id="waitlist-feedback" class="waitlist-feedback" aria-live="polite"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -268,13 +353,12 @@
     </footer>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script type="module">
-        import { GOOGLE_CLIENT_ID } from './constants.js';
-        // Set the client ID dynamically
+    <script>
+        // Set the client ID dynamically (GOOGLE_CLIENT_ID is set in constants.js)
         document.addEventListener('DOMContentLoaded', function () {
             const gIdOnload = document.getElementById('g_id_onload');
-            if (gIdOnload) {
-                gIdOnload.setAttribute('data-client_id', GOOGLE_CLIENT_ID);
+            if (gIdOnload && window.GOOGLE_CLIENT_ID) {
+                gIdOnload.setAttribute('data-client_id', window.GOOGLE_CLIENT_ID);
             }
         });
 
