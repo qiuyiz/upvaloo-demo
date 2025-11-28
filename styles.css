@@ -469,7 +469,19 @@ ul {
    =================================== */
 .features-section {
     padding: var(--spacing-3xl) 0;
-    background: var(--color-bg-secondary);
+    background: #ffffff;
+}
+
+.features-section .feature-title {
+    color: #000000;
+}
+
+.features-section .feature-description {
+    color: #333333;
+}
+
+.features-section .highlight-item {
+    color: #333333;
 }
 
 .section-header {
@@ -596,6 +608,70 @@ ul {
     color: var(--color-text-secondary);
     margin-bottom: var(--spacing-lg);
     line-height: 1.7;
+}
+
+.mission-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 24px;
+    padding: var(--spacing-xl);
+    margin: 0 auto var(--spacing-2xl);
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(192, 192, 192, 0.1), transparent 60%);
+    pointer-events: none;
+}
+
+.mission-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-accent-gold);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.mission-text {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #000000;
+    font-weight: 600;
+}
+
+.cycle-visual-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-2xl);
+    padding: 0 var(--spacing-md);
+}
+
+.cycle-visual-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 800px;
+    /* Increased height to make it bigger */
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .feature-highlights {
